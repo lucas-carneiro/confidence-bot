@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "A bot which simplifies confidence voting through Discord for agile teams.",
   "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lucas-carneiro/confidence-bot.git"
