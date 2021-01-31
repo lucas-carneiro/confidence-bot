@@ -1,0 +1,25 @@
+{
+  "name": "confidence-bot",
+  "version": "0.1.0",
+  "description": "A bot which simplifies confidence voting through Discord for agile teams.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucas-carneiro/confidence-bot.git"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "confidence",
+    "agile"
+  ],
+  "author": "Lucas Rodrigues Carneiro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lucas-carneiro/confidence-bot/issues"
+  },
+  "homepage": "https://github.com/lucas-carneiro/confidence-bot#readme",
+  "dependencies": {
+    "discord.js": "^12.5.1"
+  }
+}
