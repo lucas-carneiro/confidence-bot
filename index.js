@@ -57,6 +57,7 @@ function takeCommand(message) {
 }
 
 function startConfidence(channel) {
+    confidenceVotes = [];
     const startConfidenceMessage = "Send me DMs with your confidence votes!";
     channel.send(startConfidenceMessage);
 }
