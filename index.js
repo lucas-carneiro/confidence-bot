@@ -51,12 +51,16 @@ function takeCommand(message) {
             endConfidence(message.channel);
             message.delete();
             break;
+        case "!votes":
+            countVotes(message.channel);
+            break;
         default:
             break;
     }
 }
 
 function startConfidence(channel) {
+    confidenceVotes = [];
     const startConfidenceMessage = "Send me DMs with your confidence votes!";
     channel.send(startConfidenceMessage);
 }
@@ -72,6 +76,11 @@ function endConfidence(channel) {
     } finally {
         confidenceVotes = [];
     }
+}
+
+function countVotes(channel) {
+    const votes = confidenceVotes.length;
+    channel.send(`I'm currently storing ${votes} votes.`);
 }
 
 function calculateConfidence() {
