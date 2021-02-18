@@ -25,16 +25,28 @@ function isDirectMessage(message) {
 
 function takeVote(message) {
     const vote = Number.parseInt(message.content);
-    if (isValidVote(vote)) {
-        confidenceVotes.push(vote);
+    const { username: user } = message.author;
+    try {
+        isValidVote(votes,user);
+        confidenceVotes.push({user , vote});
         message.reply("Thank you for your vote!");
-    } else {
-        message.reply("Oops, that's not a valid vote. Please send me an integer number between 1 and 5.");
+    } catch(error) {
+        message.reply(error.message);
     }
 }
 
-function isValidVote(vote) {
-    return Number.isInteger(vote) && vote >= 1 && vote <= 5;
+function isValidVote(vote, user) {
+    // Checking if the vote is a valid number
+    const isValidNumber = Number.isInteger(vote) && vote >= 1 && vote <= 5;
+    if(!isValidNumber) {
+        throw new Error("Oops, that's not a valid vote. Please send me an integer number between 1 and 5.");
+    }
+
+    //Checking if the user areadyVoted
+    const alreadyVoted =  confidenceVotes.filter(vote => vote.user != user) > 0;
+    if(alreadyVoted) {
+        throw new Error("Oops, you already voted")
+    }
 }
 
 function takeCommand(message) {
@@ -85,7 +97,7 @@ function countVotes(channel) {
 
 function calculateConfidence() {
     let sumVotes = 0;
-    confidenceVotes.forEach(vote => sumVotes += vote);
+    confidenceVotes.forEach(vote => sumVotes += vote.vote);
 
     if (sumVotes > 0)
         return sumVotes / confidenceVotes.length;
@@ -115,6 +127,6 @@ function formatDateNumber(dateNumber) {
 
 function formatVotes() {
     let votes = "";
-    confidenceVotes.forEach(vote => votes += `${vote}, `);
+    confidenceVotes.forEach(vote => votes += `${vote.vote}, `);
     return `(${votes.substring(0, votes.length - 2)})`;
 }
